@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --tg-theme-bg-color: #ffffff;
+  --tg-theme-text-color: #000000;
+  --tg-theme-hint-color: #999999;
+  --tg-theme-link-color: #2481cc;
+  --tg-theme-button-color: #2481cc;
+  --tg-theme-button-text-color: #ffffff;
+  --tg-theme-secondary-bg-color: #f1f1f1;
+}
+
+@layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+  }
+}
+
+@layer components {
+  .scan-button {
+    @apply bg-tg-button text-tg-button-text border-none rounded-xl px-8 py-4 text-lg font-medium cursor-pointer w-full max-w-xs transition-all duration-200 shadow-lg;
+  }
+
+  .scan-button:active {
+    @apply animate-pulse-scale;
+  }
+
+  .scanner-overlay {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .scanner-overlay::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #00ff00, transparent);
+    animation: scan-line 2s linear infinite;
+  }
+}
