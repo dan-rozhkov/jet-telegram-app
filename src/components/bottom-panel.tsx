@@ -25,43 +25,41 @@ function BottomPanel({ startScanning, handleGeolocate }: BottomPanelProps) {
           open={open}
           setOpen={setOpen}
         >
-          <div className="p-6 bg-gray-100 rounded-t-3xl text-md relative pb-12 flex flex-col gap-2">
-            <div className="flex w-9 h-[5px] rounded-full bg-gray-400/80 mx-auto top-1 absolute left-1/2 -translate-x-1/2"></div>
+          <div className="bg-white rounded-2xl p-4">
+            <h3>Профиль</h3>
+          </div>
 
+          <div className="grid grid-cols-2 gap-2">
             <div className="bg-white rounded-2xl p-4">
-              <h3>Профиль</h3>
+              <h3>Кошелек</h3>
             </div>
 
-            <div className="grid grid-cols-2 gap-2">
-              <div className="bg-white rounded-2xl p-4">
-                <h3>Кошелек</h3>
-              </div>
+            <div className="bg-white rounded-2xl p-4">
+              <h3>Промокоды и скидки</h3>
+            </div>
 
-              <div className="bg-white rounded-2xl p-4">
-                <h3>Промокоды и скидки</h3>
-              </div>
+            <div className="bg-white rounded-2xl p-4">
+              <h3>Помощь</h3>
+            </div>
 
-              <div className="bg-white rounded-2xl p-4">
-                <h3>Помощь</h3>
-              </div>
+            <div className="bg-white rounded-2xl p-4">
+              <h3>Тест на ПДД</h3>
+            </div>
 
-              <div className="bg-white rounded-2xl p-4">
-                <h3>Тест на ПДД</h3>
-              </div>
+            <div className="bg-white rounded-2xl p-4">
+              <h3>История</h3>
+            </div>
 
-              <div className="bg-white rounded-2xl p-4">
-                <h3>История</h3>
-              </div>
-
-              <div className="bg-white rounded-2xl p-4">
-                <h3>Способы оплаты</h3>
-              </div>
+            <div className="bg-white rounded-2xl p-4">
+              <h3>Способы оплаты</h3>
             </div>
           </div>
         </Drawer>
 
         <button
-          onClick={startScanning}
+          onClick={() => {
+            startScanning();
+          }}
           className="bg-[var(--tg-theme-button-color)] text-white px-6 py-3 h-14 rounded-full flex items-center gap-3 font-medium text-lg shadow-lg active:scale-95 transition-all text-nowrap"
         >
           <ScanQrCode className="size-6" />

@@ -17,6 +17,9 @@ const TelegramApp: React.FC = () => {
   const { zoomMap, zoomOutMap, handleGeolocate, position } = map;
   const [selectedMarker, setSelectedMarker] = useState<Marker | null>(null);
   const [open, setOpen] = useState(false);
+  const [view, setView] = useState<"start" | "eco" | "history" | "wallet">(
+    "start"
+  );
 
   useEffect(() => {
     // Telegram WebApp initialization
@@ -73,6 +76,7 @@ const TelegramApp: React.FC = () => {
   const onMarkerClick = (marker: Marker) => {
     setSelectedMarker(marker);
     setOpen(true);
+    setView("start");
   };
 
   const startScanning = async () => {
@@ -122,6 +126,8 @@ const TelegramApp: React.FC = () => {
       </div>
 
       <ScooterDrawer
+        view={view}
+        setView={setView}
         marker={selectedMarker as unknown as Marker}
         open={open}
         setOpen={setOpen}
