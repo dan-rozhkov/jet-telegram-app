@@ -132,7 +132,7 @@ export function Map({
           <div class="size-4 flex items-center justify-center rounded-full bg-blue-500 border-2 border-white ring-[0.5rem] ring-blue-500/20"></div>
         `
         : `
-          <img src="/images/pin.svg" class="size-10" />
+          <img src="./images/pin.svg" class="size-10" />
         `;
     return el;
   };
