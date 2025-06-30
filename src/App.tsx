@@ -2,18 +2,17 @@ import React, { useState, useEffect, useRef } from "react";
 import { initQRScanner } from "@telegram-apps/sdk";
 import { postEvent, on } from "@telegram-apps/bridge";
 import "./types/telegram";
-import {
-  viewport,
-  // requestFullscreen,
-  // isFullscreen,
-} from "@telegram-apps/sdk-react";
-import { Menu, Minus, Navigation, Plus, ScanQrCode } from "lucide-react";
-import { Map } from "./components/map";
+import { viewport } from "@telegram-apps/sdk-react";
+import { Map, useMap } from "./components/map";
+import BottomPanel from "./components/bottom-panel";
+import MapControls from "./components/map-controls";
 
-const TelegramQRApp: React.FC = () => {
-  const [scannedData, setScannedData] = useState<string>("");
-  const [error, setError] = useState<string>("");
+const TelegramApp: React.FC = () => {
+  const [, setScannedData] = useState<string>("");
+  const [, setError] = useState<string>("");
   const qrScannerRef = useRef<any>(null);
+  const map = useMap();
+  const { zoomMap, zoomOutMap, handleGeolocate } = map;
 
   useEffect(() => {
     // Telegram WebApp initialization
@@ -80,7 +79,6 @@ const TelegramQRApp: React.FC = () => {
           text: "Сканируйте QR-код",
         });
 
-        console.log("Отсканированный QR-код:", result);
         setScannedData(result.data || result);
 
         // Show result through Telegram API
@@ -103,73 +101,23 @@ const TelegramQRApp: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 relative">
-      <div className="absolute top-0 left-0 w-full h-full">
-        <Map />
+      <div className="absolute top-0 left-0 w-dvw h-[calc(100dvh+10dvh)]">
+        <Map
+          mapRef={map.mapRef}
+          mapContainer={map.mapContainer}
+          markersRef={map.markersRef}
+          handleGeolocate={map.handleGeolocate}
+        />
       </div>
 
-      {/* Zoom controls */}
-      <div className="absolute right-4 top-1/2 transform -translate-y-1/2 flex flex-col -space-y-[1px]">
-        <button className="w-12 h-12 bg-white rounded-2xl rounded-b-none shadow-lg flex items-center justify-center text-gray-700 hover:bg-gray-50 active:scale-95">
-          <Plus className="size-6" />
-        </button>
-        <button className="w-12 h-12 bg-white rounded-2xl rounded-t-none shadow-lg flex items-center justify-center text-gray-700 hover:bg-gray-50 active:scale-95">
-          <Minus className="size-6" />
-        </button>
-      </div>
+      <MapControls zoomMap={zoomMap} zoomOutMap={zoomOutMap} />
 
-      {/* Bottom scan button */}
-      <div className="absolute bottom-8 w-full flex justify-center gap-2">
-        <button
-          className="bg-white px-4 py-2 rounded-full shadow-lg"
-          onClick={() => {
-            postEvent("web_app_request_fullscreen");
-          }}
-        >
-          <Menu className="size-6" />
-        </button>
-
-        <button
-          onClick={startScanning}
-          className="bg-[var(--tg-theme-button-color)] text-white px-8 py-4 rounded-full flex items-center gap-3 font-medium text-lg shadow-lg active:scale-95 transition-all text-nowrap"
-        >
-          <ScanQrCode className="size-6" />
-          Сканировать QR-код
-        </button>
-
-        <button className="bg-white px-4 py-2 rounded-full shadow-lg">
-          <Navigation className="size-6" />
-        </button>
-      </div>
-
-      {/* Distance indicator */}
-      <div className="absolute bottom-[14%] left-1/2 transform -translate-x-1/2 bg-white px-4 py-2 rounded-full shadow-lg">
-        <span className="text-md font-medium">10 рядом</span>
-      </div>
-
-      {error && (
-        <div className="absolute top-4 left-4 right-4 bg-red-500 text-white p-4 rounded-lg text-sm shadow-lg z-50">
-          <div className="flex items-center gap-2">
-            <span className="text-lg">⚠️</span>
-            <span>{error}</span>
-          </div>
-        </div>
-      )}
-
-      {scannedData && (
-        <div className="absolute top-4 left-4 right-4 bg-green-500 text-white p-4 rounded-lg text-sm shadow-lg z-50">
-          <div className="flex items-start gap-2">
-            <span className="text-lg flex-shrink-0">✅</span>
-            <div>
-              <div className="font-semibold mb-1">Результат:</div>
-              <div className="font-mono text-xs bg-black bg-opacity-20 p-2 rounded">
-                {scannedData}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      <BottomPanel
+        startScanning={startScanning}
+        handleGeolocate={handleGeolocate}
+      />
     </div>
   );
 };
 
-export default TelegramQRApp;
+export default TelegramApp;

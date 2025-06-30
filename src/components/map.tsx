@@ -1,6 +1,6 @@
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useCallback } from "react";
 
 const mockMarkers = [
   {
@@ -24,11 +24,74 @@ interface Marker {
   description?: string;
 }
 
-export function Map({ markers = mockMarkers }: { markers?: Marker[] }) {
+export function useMap() {
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const mapContainer = useRef<HTMLDivElement>(null);
   const markersRef = useRef<mapboxgl.Marker[]>([]);
 
+  const zoomMap = useCallback(() => {
+    if (mapRef.current) {
+      const currentZoom = mapRef.current.getZoom();
+      mapRef.current.flyTo({
+        zoom: currentZoom + 1,
+        essential: true,
+      });
+    }
+  }, [mapRef]);
+
+  const zoomOutMap = useCallback(() => {
+    if (mapRef.current) {
+      const currentZoom = mapRef.current.getZoom();
+      mapRef.current.flyTo({
+        zoom: currentZoom - 1,
+        essential: true,
+      });
+    }
+  }, [mapRef]);
+
+  const handleGeolocate = useCallback(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          mapRef.current?.flyTo({
+            center: [longitude, latitude],
+            zoom: 14,
+            essential: true,
+          });
+        },
+        () => {
+          alert("Не удалось получить геолокацию");
+        }
+      );
+    } else {
+      alert("Геолокация не поддерживается");
+    }
+  }, [mapRef]);
+
+  return {
+    mapRef,
+    mapContainer,
+    markersRef,
+    handleGeolocate,
+    zoomMap,
+    zoomOutMap,
+  };
+}
+
+export function Map({
+  markers = mockMarkers,
+  mapRef,
+  mapContainer,
+  markersRef,
+  handleGeolocate,
+}: {
+  markers?: Marker[];
+  mapRef: React.MutableRefObject<mapboxgl.Map | null>;
+  mapContainer: React.RefObject<HTMLDivElement>;
+  markersRef: React.MutableRefObject<mapboxgl.Marker[]>;
+  handleGeolocate: () => void;
+}) {
   const createMarkerElement = (marker: Marker) => {
     console.log(marker);
     const el = document.createElement("div");
@@ -75,6 +138,7 @@ export function Map({ markers = mockMarkers }: { markers?: Marker[] }) {
 
       mapRef.current.on("load", () => {
         updateMarkers();
+        handleGeolocate();
       });
     }
 

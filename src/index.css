@@ -37,20 +37,4 @@
   .scan-button:active {
     @apply animate-pulse-scale;
   }
-
-  .scanner-overlay {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .scanner-overlay::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #00ff00, transparent);
-    animation: scan-line 2s linear infinite;
-  }
 }
