@@ -1,5 +1,6 @@
 import { Menu, Navigation, ScanQrCode } from "lucide-react";
 import Drawer from "./drawer";
+import { useState } from "react";
 
 type BottomPanelProps = {
   startScanning: () => void;
@@ -7,6 +8,8 @@ type BottomPanelProps = {
 };
 
 function BottomPanel({ startScanning, handleGeolocate }: BottomPanelProps) {
+  const [open, setOpen] = useState(false);
+
   return (
     <div className="absolute bottom-8 w-full flex justify-center gap-8 items-center flex-col">
       <div className="bg-white px-4 py-2 rounded-full shadow-lg">
@@ -19,6 +22,8 @@ function BottomPanel({ startScanning, handleGeolocate }: BottomPanelProps) {
               <Menu className="size-6" />
             </button>
           }
+          open={open}
+          setOpen={setOpen}
         >
           <div className="p-6 bg-gray-100 rounded-t-3xl text-md relative pb-12 flex flex-col gap-2">
             <div className="flex w-9 h-[5px] rounded-full bg-gray-400/80 mx-auto top-1 absolute left-1/2 -translate-x-1/2"></div>

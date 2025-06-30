@@ -6,13 +6,17 @@ import { viewport } from "@telegram-apps/sdk-react";
 import { Map, useMap } from "./components/map";
 import BottomPanel from "./components/bottom-panel";
 import MapControls from "./components/map-controls";
+import { Marker } from "mapbox-gl";
+import ScooterDrawer from "./components/scooter-drawer";
 
 const TelegramApp: React.FC = () => {
   const [, setScannedData] = useState<string>("");
   const [, setError] = useState<string>("");
   const qrScannerRef = useRef<any>(null);
   const map = useMap();
-  const { zoomMap, zoomOutMap, handleGeolocate } = map;
+  const { zoomMap, zoomOutMap, handleGeolocate, position } = map;
+  const [selectedMarker, setSelectedMarker] = useState<Marker | null>(null);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     // Telegram WebApp initialization
@@ -66,6 +70,11 @@ const TelegramApp: React.FC = () => {
     };
   }, []);
 
+  const onMarkerClick = (marker: Marker) => {
+    setSelectedMarker(marker);
+    setOpen(true);
+  };
+
   const startScanning = async () => {
     try {
       setError("");
@@ -103,12 +112,20 @@ const TelegramApp: React.FC = () => {
     <div className="min-h-screen bg-gray-100 relative">
       <div className="absolute top-0 left-0 w-dvw h-[calc(100dvh+10dvh)]">
         <Map
+          onMarkerClick={(marker) => onMarkerClick(marker as unknown as Marker)}
           mapRef={map.mapRef}
           mapContainer={map.mapContainer}
           markersRef={map.markersRef}
           handleGeolocate={map.handleGeolocate}
+          position={position}
         />
       </div>
+
+      <ScooterDrawer
+        marker={selectedMarker as unknown as Marker}
+        open={open}
+        setOpen={setOpen}
+      />
 
       <MapControls zoomMap={zoomMap} zoomOutMap={zoomOutMap} />
 

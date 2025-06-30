@@ -3,11 +3,18 @@ import { Drawer as VaulDrawer } from "vaul";
 type DrawerProps = {
   children: React.ReactNode;
   trigger: React.ReactNode;
+  open: boolean;
+  setOpen: (open: boolean) => void;
 };
 
-export default function Drawer({ children, trigger }: DrawerProps) {
+export default function Drawer({
+  children,
+  trigger,
+  open,
+  setOpen,
+}: DrawerProps) {
   return (
-    <VaulDrawer.Root>
+    <VaulDrawer.Root open={open} onOpenChange={setOpen}>
       <VaulDrawer.Trigger asChild>{trigger}</VaulDrawer.Trigger>
       <VaulDrawer.Portal>
         <VaulDrawer.Overlay className="fixed inset-0 bg-black/20" />
