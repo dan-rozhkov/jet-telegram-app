@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { initQRScanner } from "@telegram-apps/sdk";
 import { postEvent, on } from "@telegram-apps/bridge";
 import { viewport } from "@telegram-apps/sdk-react";

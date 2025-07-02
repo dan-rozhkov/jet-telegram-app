@@ -1,12 +1,5 @@
 import { hapticFeedback } from "@telegram-apps/sdk-react";
-import {
-  ClipboardCheck,
-  HelpCircle,
-  Heart,
-  ScanQrCode,
-  Wallet,
-  Leaf,
-} from "lucide-react";
+import { Heart, ScanQrCode, Wallet, Leaf } from "lucide-react";
 import { Button } from "./ui/button";
 
 export default function StartDrawerContent({
