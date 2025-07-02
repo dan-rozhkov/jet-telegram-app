@@ -11,6 +11,13 @@ declare global {
         close: () => void;
         onEvent: (eventType: string, eventHandler: () => void) => void;
         offEvent: (eventType: string, eventHandler: () => void) => void;
+        shareToStory?: (
+          media_url: string,
+          params?: {
+            text?: string;
+            widget_link?: { url: string; text?: string };
+          }
+        ) => void;
         MainButton: {
           text: string;
           show: () => void;
@@ -24,6 +31,12 @@ declare global {
           link_color?: string;
           button_color?: string;
           button_text_color?: string;
+        };
+        safeAreaInset?: {
+          top: number;
+          bottom: number;
+          left: number;
+          right: number;
         };
       };
     };

@@ -47,20 +47,6 @@ export default function StartDrawerContent({
       </div>
 
       <div className="grid grid-cols-2 gap-2">
-        <div className="bg-gray-100 rounded-2xl p-6 aspect-square font-semibold leading-tight flex flex-col justify-between gap-2">
-          <div className="size-8 bg-gray-400/80 rounded-full flex items-center justify-center">
-            <HelpCircle className="size-6 text-white" />
-          </div>
-          <h3 className="text-sm">Тест по ПДД</h3>
-        </div>
-
-        <div className="bg-gray-100 rounded-2xl p-6 aspect-square font-semibold leading-tight flex flex-col justify-between gap-2">
-          <div className="size-8 bg-gray-400/80 rounded-full flex items-center justify-center">
-            <Wallet className="size-6 text-white" />
-          </div>
-          <h3>Помощь</h3>
-        </div>
-
         <div
           onClick={() => {
             hapticFeedback;
@@ -69,7 +55,7 @@ export default function StartDrawerContent({
           className="bg-gray-100 rounded-2xl p-6 aspect-square font-semibold leading-tight flex flex-col justify-between gap-2"
         >
           <div className="size-8 bg-gray-400/80 rounded-full flex items-center justify-center">
-            <ClipboardCheck className="size-6 text-white" />
+            <Wallet className="size-6 text-white" />
           </div>
           <h3>Кошелек</h3>
         </div>
@@ -82,9 +68,9 @@ export default function StartDrawerContent({
         </div>
       </div>
 
-      <div className="flex overflow-x-auto gap-2">
+      <div className="flex gap-2 w-full">
         <Button
-          className="bg-blue-500 hover:bg-blue-600 text-white py-4 h-14 rounded-xl"
+          className="bg-blue-500 hover:bg-blue-600 text-white py-4 h-14 rounded-xl flex-1"
           onClick={() => {
             // setCurrentView("payment");
           }}
@@ -94,8 +80,9 @@ export default function StartDrawerContent({
             <div className="text-xs">50 ₽ • 5 ₽/мин</div>
           </div>
         </Button>
+
         <Button
-          className="bg-blue-500 hover:bg-blue-600 text-white py-4 h-14 rounded-xl"
+          className="bg-blue-500 hover:bg-blue-600 text-white py-4 h-14 rounded-xl flex-1"
           onClick={() => {
             // setCurrentView("payment");
           }}
@@ -105,19 +92,20 @@ export default function StartDrawerContent({
             <div className="text-xs">399 ₽</div>
           </div>
         </Button>
-        <Button
-          variant="outline"
-          className="py-4 h-14 rounded-xl bg-transparent"
-          onClick={() => {
-            // setCurrentView("payment");
-          }}
-        >
-          <div className="text-center">
-            <div className="text-sm font-bold">Забронировать</div>
-            <div className="text-xs text-gray-500">Бесплатно</div>
-          </div>
-        </Button>
       </div>
+
+      <Button
+        variant="outline"
+        className="py-4 h-14 rounded-xl bg-transparent"
+        onClick={() => {
+          // setCurrentView("payment");
+        }}
+      >
+        <div className="text-center">
+          <div className="text-sm font-bold">Забронировать</div>
+          <div className="text-xs text-gray-500">Бесплатно</div>
+        </div>
+      </Button>
 
       <button
         onClick={() => {
