@@ -16,6 +16,8 @@ const TelegramApp: React.FC = () => {
           <Route path="/start" element={<MainScreen />} />
           <Route path="/eco" element={<MainScreen />} />
           <Route path="/wallet" element={<MainScreen />} />
+          <Route path="/payment" element={<MainScreen />} />
+          <Route path="/active-ride" element={<MainScreen />} />
 
           <Route path="/profile" element={<ProfileScreen />} />
           <Route path="/history" element={<HistoryScreen />} />

@@ -5,7 +5,9 @@ import { Button } from "./ui/button";
 export default function StartDrawerContent({
   setCurrentView,
 }: {
-  setCurrentView: (view: "eco" | "history" | "wallet") => void;
+  setCurrentView: (
+    view: "start" | "eco" | "history" | "wallet" | "payment" | "active-ride"
+  ) => void;
 }) {
   return (
     <>
@@ -65,7 +67,7 @@ export default function StartDrawerContent({
         <Button
           className="bg-blue-500 hover:bg-blue-600 text-white py-4 h-14 rounded-xl flex-1"
           onClick={() => {
-            // setCurrentView("payment");
+            setCurrentView("payment");
           }}
         >
           <div className="text-center">
@@ -77,7 +79,7 @@ export default function StartDrawerContent({
         <Button
           className="bg-blue-500 hover:bg-blue-600 text-white py-4 h-14 rounded-xl flex-1"
           onClick={() => {
-            // setCurrentView("payment");
+            setCurrentView("payment");
           }}
         >
           <div className="text-center">
@@ -91,7 +93,7 @@ export default function StartDrawerContent({
         variant="outline"
         className="py-4 h-14 rounded-xl bg-transparent"
         onClick={() => {
-          // setCurrentView("payment");
+          setCurrentView("payment");
         }}
       >
         <div className="text-center">

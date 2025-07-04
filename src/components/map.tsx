@@ -73,6 +73,7 @@ export function useMap() {
           (position) => {
             const { latitude, longitude } = position.coords;
             const coords: [number, number] = [longitude, latitude];
+            console.log("coords", coords);
 
             mapRef.current?.flyTo({
               center: coords,

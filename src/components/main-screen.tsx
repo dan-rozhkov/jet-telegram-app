@@ -21,10 +21,13 @@ const MainScreen: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  let view: "start" | "eco" | "history" | "wallet" = "start";
+  let view: "start" | "eco" | "history" | "wallet" | "payment" | "active-ride" =
+    "start";
   if (location.pathname === "/eco") view = "eco";
   else if (location.pathname === "/history") view = "history";
   else if (location.pathname === "/wallet") view = "wallet";
+  else if (location.pathname === "/payment") view = "payment";
+  else if (location.pathname === "/active-ride") view = "active-ride";
   else view = "start";
 
   useEffect(() => {

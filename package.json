@@ -12,6 +12,7 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-slot": "^1.2.3",
     "@telegram-apps/bridge": "^2.10.3",
     "@telegram-apps/sdk": "^1.1.3",
